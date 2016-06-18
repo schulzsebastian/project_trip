@@ -1,15 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import Flask, redirect, url_for, session, request, jsonify, render_template
+from flask import Flask, redirect, url_for, session, request, render_template
+from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_oauthlib.client import OAuth
 from models import *
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object('config.Local')
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
 oauth = OAuth()
-
-
 google = oauth.remote_app(
     'google',
     consumer_key=app.config.get('GOOGLE_ID'),
@@ -24,16 +28,14 @@ google = oauth.remote_app(
     authorize_url='https://accounts.google.com/o/oauth2/auth',
 )
 
+@login_manager.user_loader
+def load_user(id):
+    return User.select().where(User.id == id).first()
 
 @app.route('/')
+@login_required
 def index():
-    if 'google_token' in session:
-        me = google.get('userinfo')
-        print me.data['name']
-        print me.data['email']
-        print me.data['picture']
-        return render_template('index.html')
-    return redirect(url_for('login'))
+    return render_template('index.html')
 
 
 @app.route('/login')
@@ -44,6 +46,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('google_token', None)
+    logout_user()
     return redirect(url_for('index'))
 
 
@@ -58,8 +61,10 @@ def authorized():
 
     session['google_token'] = (resp['access_token'], '')
     me = google.get('userinfo')
-    if not User.select().where(User.gid==me.data['id']).first():
-        User.create(gid=me.data['id'], name=me.data['name'], email=me.data['email'], avatar=me.data['picture'])
+    user = User.select().where(User.gid == me.data['id']).first()
+    if not user:
+        user = User.create(gid=me.data['id'], name=me.data['name'], email=me.data['email'], avatar=me.data['picture'], registered=datetime.datetime.now())
+    login_user(user)
     return redirect(url_for('index'))
 
 
