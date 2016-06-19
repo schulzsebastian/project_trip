@@ -6,7 +6,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_oauthlib.client import OAuth
 from models import *
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates')
 app.config.from_object('config.Local')
 
 login_manager = LoginManager()
@@ -50,7 +50,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/login/authorized')
+@app.route('/authorized')
 def authorized():
     resp = google.authorized_response()
     if resp is None:
@@ -71,7 +71,6 @@ def authorized():
 @google.tokengetter
 def get_google_oauth_token():
     return session.get('google_token')
-
 
 if __name__ == '__main__':
     app.run()
