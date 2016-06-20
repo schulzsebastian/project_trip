@@ -9,16 +9,20 @@
     {% include "header.html" %}
     <div class="container" style="padding-top:20px">
       <div class="row">
-
+        id: {{current_user.id}}<br>
+        gid: {{current_user.gid}}<br>
+        name: {{current_user.name}}<br>
+        email: {{current_user.email}}<br>
+        registered: {{current_user.registered}}<br>
       </div>
     </div>
     <script>
       //jQuery docelowo w stopkę
       $('.button-collapse').sideNav()
-      function indexModel(){
+      function panelModel(){
         var self = this;
       }
-      var vm = new indexModel();
+      var vm = new panelModel();
       ko.applyBindings(vm);
     </script>
   </body>

@@ -1,0 +1,24 @@
+<nav class="grey" role="navigation">
+  <div class="nav-wrapper container">
+    <a id="logo-container" href="#" class="brand-logo" style='font-family:"Indie Flower"'>TripyPlan</a>
+    {% if current_user.is_authenticated() %}
+    <ul class="right hide-on-med-and-down">
+      <li>{{current_user.name}}</li>
+      <li style="height:64px; padding-left:10px">
+        <a href="#" style="height:64px;padding-bottom:10px;padding-top:10px"><img src="{{current_user.avatar}}" class="circle responsive-img" width="30" height="30"></a>
+      </li>
+    </ul>
+    <ul id="nav-mobile" class="side-nav">
+      <li><a href="{{ url_for('panel') }}">Panel</a></li>
+    </ul>
+    {% else %}
+    <ul class="right hide-on-med-and-down">
+      <li><a href="{{ url_for('login') }}">Sign in with <i class="fa fa-google"></i></a></li>
+    </ul>
+    <ul id="nav-mobile" class="side-nav">
+      <li><a href="{{ url_for('login') }}">Sign in with <i class="fa fa-google"></i></a></li>
+    </ul>
+    {% endif %}
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+  </div>
+</nav>
