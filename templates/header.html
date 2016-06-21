@@ -1,11 +1,11 @@
 <nav class="light-blue" role="navigation">
   <div class="nav-wrapper container">
-    <a id="logo-container" href="#" class="brand-logo" style='font-family:"Josefin Sans"'>Tripyplan</a>
+    <a id="logo-container" href="#" class="brand-logo" style='font-family:"Josefin Sans";padding-left:10px'>Tripyplan</a>
     {% if current_user.is_authenticated() %}
     <ul class="right hide-on-med-and-down">
       <li>{{current_user.name}}</li>
-      <li style="padding-left:10px">
-        <a href="{{ url_for('logout') }}"><i class="material-icons" style="font-size:20px;">power_settings_new</i>
+      <li>
+        <a href="{{ url_for('logout') }}"><i class="material-icons" style="font-size:20px;">power_settings_new</i></a>
       </li>
     </ul>
     <ul id="nav-mobile" class="side-nav">
