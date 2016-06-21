@@ -12,7 +12,7 @@ class User(Model):
     name = CharField()
     email = CharField()
     avatar = CharField()
-    registered = DateTimeField()
+    registered = DateField(default=datetime.date.today())
  
     def is_authenticated(self):
         return True

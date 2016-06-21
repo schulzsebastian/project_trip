@@ -1,6 +1,6 @@
-<nav class="grey" role="navigation">
+<nav class="light-blue" role="navigation">
   <div class="nav-wrapper container">
-    <a id="logo-container" href="#" class="brand-logo" style='font-family:"Indie Flower"'>TripyPlan</a>
+    <a id="logo-container" href="#" class="brand-logo" style='font-family:"Josefin Sans"'>Tripyplan</a>
     {% if current_user.is_authenticated() %}
     <ul class="right hide-on-med-and-down">
       <li>{{current_user.name}}</li>
@@ -9,7 +9,7 @@
       </li>
     </ul>
     <ul id="nav-mobile" class="side-nav">
-      <li><a href="{{ url_for('panel') }}">Panel</a></li>
+      <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
     </ul>
     {% else %}
     <ul class="right hide-on-med-and-down">

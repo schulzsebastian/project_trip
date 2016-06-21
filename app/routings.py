@@ -8,10 +8,10 @@ from . import app
 @app.route('/')
 def index():
     if current_user.is_authenticated():
-        return redirect(url_for('panel'))
+        return redirect(url_for('dashboard'))
     return render_template('index.html')
 
-@app.route('/panel')
+@app.route('/dashboard')
 @login_required
-def panel():
-    return render_template('panel.html')
+def dashboard():
+    return render_template('dashboard.html')

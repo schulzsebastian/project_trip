@@ -59,8 +59,7 @@ def authorized():
             gid=me.data['id'],
             name=me.data['name'],
             email=me.data['email'],
-            avatar=me.data['picture'],
-            registered=datetime.datetime.now()
+            avatar=me.data['picture']
         )
     login_user(user)
     return redirect(url_for('index'))
