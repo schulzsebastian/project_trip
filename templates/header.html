@@ -4,8 +4,8 @@
     {% if current_user.is_authenticated() %}
     <ul class="right hide-on-med-and-down">
       <li>{{current_user.name}}</li>
-      <li style="height:64px; padding-left:10px">
-        <a href="#" style="height:64px;padding-bottom:10px;padding-top:10px"><img src="{{current_user.avatar}}" class="circle responsive-img" width="30" height="30"></a>
+      <li style="padding-left:10px">
+        <a href="{{ url_for('logout') }}"><i class="material-icons" style="font-size:20px;">power_settings_new</i>
       </li>
     </ul>
     <ul id="nav-mobile" class="side-nav">
