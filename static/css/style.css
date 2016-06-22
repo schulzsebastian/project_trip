@@ -1,3 +1,9 @@
-.tabs .indicator {
-    background-color: #4fc3f7;
+.tabs .indicator, .picker__date-display, .picker__weekday-display{
+    background-color: #03a9f4;
+}
+.picker__close, .picker__today, .picker__day.picker__day--today {
+	color: #03a9f4;
+}
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
+	background-color: #03a9f4;
 }
