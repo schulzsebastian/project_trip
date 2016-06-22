@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TripyPlan</title>
+    {% include "libraries.html" %}
+  </head>
+  <body>
+    {% include "header.html" %}
+    <div class="container" style="padding-top:30px">
+      <div class="row">
+        <div class="col m4 s12">
+          <div class="col m12 s12">
+            <div class="card" style="margin:0">
+              <div class="card-image">
+                <img src="{{ current_user.avatar }}">
+              </div>
+              <div class="card-content">
+                <p><b>name:</b> {{current_user.name}}</p>
+                <p><b>email:</b> {{current_user.email}}</p>
+                <p><b>registered:</b> {{current_user.registered}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col m8 s12">
+          <div class="row">
+            <div class="col m12 s12">
+              <ul class="tabs z-depth-1">
+                <li class="tab col s6"><a class="black-text active" href="#plans">Plans</a></li>
+                <li class="tab col s6"><a class="black-text" href="#maps">Maps</a></li>
+                <li class="tab col s6"><a class="black-text" href="#shares">Share links</a></li>
+              </ul>
+            <div id="plans" class="col s12 card-panel">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel tellus ante. Cras semper non lorem quis pretium. In pulvinar urna a lectus tincidunt commodo. Aenean dolor libero, consequat ac consectetur sit amet, pharetra eu est. Donec vehicula neque at bibendum rutrum. Nullam sed gravida eros. Pellentesque lacinia augue sed consequat placerat. Sed erat felis, vestibulum sed sapien et, maximus fermentum arcu. Sed interdum felis justo, ut fermentum ex suscipit at. Mauris id quam elit. Quisque nunc lectus, scelerisque a ornare sed, cursus ac eros. Phasellus sit amet ipsum eros. Donec eget semper libero. Phasellus dictum arcu a ligula fringilla, non varius dui facilisis.</p>
+            </div>
+            <div id="maps" class="col s12 card-panel">
+              <p>Suspendisse eget venenatis felis. Quisque nunc magna, efficitur eget nunc et, laoreet gravida est. Aenean eu odio sed neque egestas eleifend at sit amet lorem. Nam dapibus eu tellus molestie maximus. Nulla semper faucibus consectetur. Pellentesque sit amet commodo urna, sit amet laoreet velit. Suspendisse faucibus sapien nisi, vitae dapibus sapien malesuada eget. Aenean semper tortor aliquet tincidunt posuere. Vestibulum ac lacus ut urna iaculis pharetra.</p>
+            </div>
+            <div id="shares" class="col s12 card-panel">
+              <p>Etiam augue arcu, aliquet in orci in, vehicula mattis nisl. Nullam magna nunc, rhoncus sed ipsum congue, viverra dignissim turpis. In nec ultricies ipsum. Vivamus mollis porta turpis. Praesent fringilla dui ut lectus tincidunt, vel placerat enim egestas. Nullam tristique, justo sit amet euismod suscipit, augue tellus cursus eros, vel efficitur nisl nibh eu odio. Suspendisse potenti. Vestibulum mattis commodo magna, sit amet interdum eros. Mauris egestas, lacus et tincidunt varius, orci tortor ullamcorper tellus, non cursus nisi augue eget risus. Proin malesuada pharetra dolor non egestas. In hac habitasse platea dictumst. Integer non hendrerit nisi, et iaculis lacus.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      //jQuery docelowo w stopkę
+      $('.button-collapse').sideNav()
+      function panelModel(){
+        var self = this;
+      }
+      var vm = new panelModel();
+      ko.applyBindings(vm);
+    </script>
+  </body>
+</html>
