@@ -31,3 +31,13 @@ class User(Model):
 
     class Meta:
         database = db
+
+
+class Plan(Model):
+    id = PrimaryKeyField()
+    id_user = ForeignKeyField(User, related_name="plans")
+    start = DateField()
+    final = DateField()
+
+    class Meta:
+        database = db

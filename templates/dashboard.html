@@ -24,32 +24,79 @@
         <div class="col m9 s12">
           <div class="row">
             <div class="col m12 s12">
-              <ul class="tabs z-depth-1">
+              <ul class="tabs">
                 <li class="tab col s6"><a class="black-text active" href="#plans">Plans</a></li>
                 <li class="tab col s6"><a class="black-text" href="#maps">Maps</a></li>
                 <li class="tab col s6"><a class="black-text" href="#shares">Share links</a></li>
               </ul>
               <div id="plans" class="col s12 card">
-                <h5>Your plans</h5>
                 <div class="row">
                   <div class="card-action">
-                    <a data-bind="click: showPlanModal" class="btn-floating waves-effect waves-light light-blue" style="float:right"><i class="material-icons">add</i></a>
+                    <a data-bind="click: showPlanModal" class="btn-floating waves-effect waves-light light-blue" style="float:right"><i class="material-icons">add</i></a><br>
+                    <table class="highlight">
+                      <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Start date</th>
+                            <th>Final date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- ko foreach: userPlans -->
+                        <tr>
+                          <td data-bind="text: name" style="color:#03a9f4"></td>
+                          <td data-bind="text: start"></td>
+                          <td data-bind="text: final"></td>
+                        </tr>
+                        <!-- /ko -->
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
               <div id="maps" class="col s12 card">
-                <h5>Your maps</h5>
                 <div class="row">
                   <div class="card-action">
-                    <a class="btn-floating waves-effect waves-light light-blue" style="float:right"><i class="material-icons">add</i></a>
+                    <a class="btn-floating waves-effect waves-light light-blue" style="float:right"><i class="material-icons">add</i></a><br>
+                    <table class="highlight">
+                      <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Places</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- ko foreach: userMaps -->
+                        <tr>
+                          <td data-bind="text: name" style="color:#03a9f4"></td>
+                          <td data-bind="text: places"></td>
+                        </tr>
+                        <!-- /ko -->
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
               <div id="shares" class="col s12 card">
-                <h5>Your links</h5>
                 <div class="row">
                   <div class="card-action">
-                    <a class="btn-floating waves-effect waves-light light-blue" style="float:right"><i class="material-icons">add</i></a>
+                    <a class="btn-floating waves-effect waves-light light-blue" style="float:right"><i class="material-icons">add</i></a><br>
+                    <table class="highlight">
+                      <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Link</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- ko foreach: userLinks -->
+                        <tr>
+                          <td data-bind="text: name" style="color:#03a9f4"></td>
+                          <td data-bind="text: link"></td>
+                        </tr>
+                        <!-- /ko -->
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -84,6 +131,7 @@
         <a data-bind="click: addNewPlan" class="waves-effect waves-light btn-flat">OK</a>
       </div>
     </div>
+    <!-- End modal -->
     <script>
       //jQuery docelowo w stopkę
       $('.button-collapse').sideNav()
@@ -91,6 +139,7 @@
       $('.datepicker').pickadate({
         selectMonths: true,
         selectYears: 10,
+        format: 'dd-mm-yyyy',
         container: 'body'
       })
       function panelModel(){
@@ -98,15 +147,31 @@
         self.newPlan = ko.observable('')
         self.startDate = ko.observable('')
         self.finalDate = ko.observable('')
-        self.userPlans = ko.observableArray(['Georgia', 'Iran', 'Morocco'])
+        self.userPlans = ko.observableArray([
+          {name: "Georgia", start: "03-06-2016", final: "05-07-2016"},
+          {name: "Iran", start: "02-03-2016", final: "23-04-2016"},
+          {name: "Morocco", start: "10-06-2016", final: "11-06-2016"}])
+        self.userMaps = ko.observableArray([
+          {name: "Georgia", places: 8},
+          {name: "Iran", places: 12},
+          {name: "Morocco", places: 4}])
+        self.userLinks = ko.observableArray([
+          {name: "Georgia", link: "http://www.example.com/share/georgia"},
+          {name: "Iran", link: "http://www.example.com/share/iran"},
+          {name: "Morocco", link: "http://www.example.com/share/morocco"}])
 
         self.showPlanModal = function(){
           $('#addplan').openModal()
         }
         self.addNewPlan = function(){
-          console.log({name:self.newPlan(),start:self.startDate(),final:self.finalDate()})
-          $('#addplan').closeModal()
-          Materialize.toast(self.newPlan()+' added!', 4000)
+          if(self.newPlan().length > 0 && self.startDate().length > 0 && self.finalDate().length > 0){
+            self.userPlans.push({name:self.newPlan(),start:self.startDate(),final:self.finalDate()})
+            $('#addplan').closeModal()
+            Materialize.toast(self.newPlan()+' added!', 4000, 'success')
+          }else{
+            console.log({name:self.newPlan(),start:self.startDate(),final:self.finalDate()})
+            Materialize.toast('Fill all inputs!', 4000, 'error')
+          }
         }
       }
       var vm = new panelModel();

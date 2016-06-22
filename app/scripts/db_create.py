@@ -4,4 +4,4 @@
 from models import *
 
 db.connect()
-db.create_table(User)
+db.create_all()

@@ -7,3 +7,11 @@
 .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
 	background-color: #03a9f4;
 }
+.error {
+	background-color: #ff9e80;
+	color: black;
+}
+.success {
+	background-color: #ccff90;
+	color: black;
+}
