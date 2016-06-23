@@ -9,7 +9,7 @@
       </li>
     </ul>
     <ul id="nav-mobile" class="side-nav">
-      <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+      <li><a href="{{ url_for('dashboard', nick=current_user.nick) }}">Dashboard</a></li>
     </ul>
     {% else %}
     <ul class="right hide-on-med-and-down">

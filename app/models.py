@@ -10,7 +10,7 @@ class User(Model):
     id = PrimaryKeyField()
     gid = CharField()
     name = CharField()
-    email = CharField()
+    nick = CharField()
     avatar = CharField()
     registered = DateField(default=datetime.date.today())
  
@@ -35,7 +35,7 @@ class User(Model):
 
 class Plan(Model):
     id = PrimaryKeyField()
-    id_user = ForeignKeyField(User, related_name="plans")
+    nick = ForeignKeyField(User, to_field='nick')
     start = DateField()
     final = DateField()
 
