@@ -58,7 +58,7 @@ def authorized():
         user = User.create(
             gid=me.data['id'],
             name=me.data['name'],
-            email=me.data['email'],
+            nick=me.data['email'],
             avatar=me.data['picture']
         )
     login_user(user)

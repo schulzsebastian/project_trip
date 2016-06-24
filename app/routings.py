@@ -4,6 +4,7 @@
 from flask import render_template, redirect, url_for, abort
 from flask_login import login_required, current_user
 from . import app
+from models import *
 
 @app.route('/')
 def index():
@@ -14,6 +15,8 @@ def index():
 @app.route('/dashboard/<nick>')
 @login_required
 def dashboard(nick):
-    if current_user.nick != nick:
-        abort(404)
-    return render_template('dashboard.html')
+    try:
+      user = User.get(User.nick==nick)
+      return render_template('dashboard.html', user=user)
+    except:
+      return redirect(url_for('dashboard', nick=current_user.nick))

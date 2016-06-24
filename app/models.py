@@ -36,6 +36,7 @@ class User(Model):
 class Plan(Model):
     id = PrimaryKeyField()
     nick = ForeignKeyField(User, to_field='nick')
+    name = CharField()
     start = DateField()
     final = DateField()
 

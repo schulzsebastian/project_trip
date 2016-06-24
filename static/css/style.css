@@ -15,3 +15,6 @@
 	background-color: #ccff90;
 	color: black;
 }
+#body {
+	visibility: hidden;
+}
