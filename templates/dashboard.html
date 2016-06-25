@@ -138,6 +138,17 @@
       </div>
     </div>
     <!-- End modal -->
+    <div class="preloader-wrapper active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
     <script>
       //jQuery to footer (later)
       $(document).ready(function(){
@@ -150,6 +161,7 @@
           container: 'body'
         })
         $('#body').css('visibility','visible')
+        $('.preloader-wrapper').css('visibility','hidden')
       })
       function panelModel(){
         var self = this;
