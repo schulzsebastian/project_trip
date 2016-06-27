@@ -1,6 +1,6 @@
 <nav class="light-blue" role="navigation">
   <div class="nav-wrapper container">
-    <a id="logo-container" href="#" class="brand-logo" style='font-family:"Josefin Sans";padding-left:10px'>Tripyplan</a>
+    <a id="logo-container" href="{{ url_for('index') }}" class="brand-logo" style='font-family:"Josefin Sans";padding-left:10px'>Tripyplan</a>
     {% if current_user.is_authenticated() %}
     <ul class="right hide-on-med-and-down">
       <li>{{current_user.name}}</li>

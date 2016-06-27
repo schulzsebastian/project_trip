@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -134,7 +133,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <a data-bind="click: addNewPlan" class="waves-effect waves-light btn-flat">OK</a>
+        <a data-bind="click: $('#addplan').closeModal()" class="waves-effect waves-red btn-flat">Close</a>
+        <a data-bind="click: addNewPlan" class="waves-effect waves-green btn-flat">OK</a>
       </div>
     </div>
     <!-- End modal -->
@@ -191,25 +191,35 @@
           {name: "Morocco", link: "http://www.example.com/share/morocco"}])
 
         self.getUserPlans = function(nick){
-          $.getJSON('http://127.0.0.1:5000/plans/'+nick,{},function(data){
+          self.userPlans.removeAll()
+          $.getJSON(location.origin+'/plans/'+nick,{},function(data){
             data.data.forEach(function(plan){
               self.userPlans.push(plan)
             })
           })
         }
         self.showPlanModal = function(){
-          if(user.nick == current_user.nick){
+          if(self.user.nick == self.current_user.nick){
             $('#addplan').openModal()
           }
         }
         self.addNewPlan = function(){
           if(self.newPlan().length > 0 && self.startDate().length > 0 && self.finalDate().length > 0){
-            self.userPlans.push({name:self.newPlan(),start:self.startDate(),final:self.finalDate()})
-            $('#addplan').closeModal()
-            Materialize.toast(self.newPlan()+' added!', 4000, 'success')
+            var payload = {name:self.newPlan(),nick:self.current_user.nick,start:self.startDate(),final:self.finalDate()}
+            $.ajax({
+              type: 'POST',
+              url: location.origin+'/plans/'+self.current_user.nick,
+              data: JSON.stringify(payload),
+              contentType: 'application/json',
+              success: function(data){
+                $('#addplan').closeModal()
+                Materialize.toast(self.newPlan()+' added!', 2000, 'success')
+                self.getUserPlans(self.current_user.nick)
+              }
+            })
           }else{
             console.log({name:self.newPlan(),start:self.startDate(),final:self.finalDate()})
-            Materialize.toast('Fill all inputs!', 4000, 'error')
+            Materialize.toast('Fill all inputs!', 2000, 'error')
           }
         }
         self.init = function(){
