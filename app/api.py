@@ -5,6 +5,7 @@ from flask import abort, request, jsonify
 from flask_login import current_user
 from flask_cors import cross_origin
 from models import Plan
+from utils import hash_generator
 from . import app
 
 @app.route('/plans/<nick>', methods=['GET', 'POST', 'DELETE'])
@@ -18,6 +19,7 @@ def plans(nick):
         return jsonify(result)
     elif request.method == 'POST':
     	payload = request.get_json(force = True)
+        payload['id_hash'] = hash_generator(Plan)
     	p = Plan.create(**payload)
         return jsonify(payload)
     elif request.method == 'DELETE':

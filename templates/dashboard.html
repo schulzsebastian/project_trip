@@ -230,7 +230,6 @@
         }
         self.addNewPlan = function(){
           if(self.newPlan().length < 1 || self.startDate().length < 1 || self.finalDate().length < 1){
-            console.log({name:self.newPlan(),start:self.startDate(),final:self.finalDate()})
             Materialize.toast('Fill all inputs!', 2000, 'error')
           }else if(self.startDate() > self.finalDate()){
             Materialize.toast('Fix dates!', 2000, 'error')
