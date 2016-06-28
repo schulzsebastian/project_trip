@@ -216,6 +216,9 @@
         }
         self.showAddPlanModal = function(){
           if(self.user.nick == self.current_user.nick){
+            self.newPlan('')
+            self.startDate('')
+            self.finalDate('')
             $('#addplan').openModal()
           }
         }
@@ -226,7 +229,14 @@
           }
         }
         self.addNewPlan = function(){
-          if(self.newPlan().length > 0 && self.startDate().length > 0 && self.finalDate().length > 0){
+          if(self.newPlan().length < 1 || self.startDate().length < 1 || self.finalDate().length < 1){
+            console.log({name:self.newPlan(),start:self.startDate(),final:self.finalDate()})
+            Materialize.toast('Fill all inputs!', 2000, 'error')
+          }else if(self.startDate() > self.finalDate()){
+            Materialize.toast('Fix dates!', 2000, 'error')
+          }else if(self.validatePlanName(self.newPlan()) > 0){
+            Materialize.toast('Name already used!', 2000, 'error')
+          }else{
             var payload = {name:self.newPlan(),nick:self.current_user.nick,start:self.startDate(),final:self.finalDate()}
             $.ajax({
               type: 'POST',
@@ -239,10 +249,16 @@
                 self.getUserPlans(self.current_user.nick)
               }
             })
-          }else{
-            console.log({name:self.newPlan(),start:self.startDate(),final:self.finalDate()})
-            Materialize.toast('Fill all inputs!', 2000, 'error')
           }
+        }
+        self.validatePlanName = function(name){
+          var counter = 0
+          self.userPlans().forEach(function(plan){
+            if(plan.name == name){
+              counter += 1
+            }
+          })
+          return counter
         }
         self.removePlan = function(){
           $.ajax({
