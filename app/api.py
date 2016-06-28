@@ -7,16 +7,20 @@ from flask_cors import cross_origin
 from models import Plan
 from . import app
 
-@app.route('/plans/<nick>', methods=['GET', 'POST'])
+@app.route('/plans/<nick>', methods=['GET', 'POST', 'DELETE'])
 @cross_origin()
 def plans(nick):
     if request.method == 'GET':
         result = {'data':[]}
-        p = Plan.select().where(Plan.nick==nick).dicts()
+        p = Plan.select().where(Plan.nick == nick).dicts()
         for row in p:
             result['data'].append(row)
         return jsonify(result)
-    if request.method == 'POST':
-    	payload = request.get_json(force=True)
+    elif request.method == 'POST':
+    	payload = request.get_json(force = True)
     	p = Plan.create(**payload)
+        return jsonify(payload)
+    elif request.method == 'DELETE':
+        payload = request.get_json(force = True)
+        p = Plan.delete().where((Plan.name == payload['name']) & (Plan.nick == payload['nick'])).execute()
         return jsonify(payload)

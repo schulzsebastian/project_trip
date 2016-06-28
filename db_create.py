@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from models import *
+from app import *
 
 db.connect()
 db.create_tables([User, Plan])

@@ -15,6 +15,12 @@
 	background-color: #ccff90;
 	color: black;
 }
+.fa-trash-o {
+	color: red;
+}
+.fa-trash-o:hover {
+	color: #ff9e80;
+}
 #body {
 	visibility: hidden;
 }
