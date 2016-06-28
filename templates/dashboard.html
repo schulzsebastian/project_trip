@@ -40,7 +40,9 @@
                             <th>Name</th>
                             <th>Start date</th>
                             <th>Final date</th>
+                            <!-- ko if: user.nick == current_user.nick -->
                             <th>Options</th>
+                            <!-- /ko -->
                         </tr>
                       </thead>
                       <tbody data-bind="foreach: userPlans">
@@ -48,7 +50,9 @@
                           <td data-bind="text: name" style="color:#03a9f4"></td>
                           <td data-bind="text: start"></td>
                           <td data-bind="text: final"></td>
+                          <!-- ko if: $root.user.nick == $root.current_user.nick -->
                           <td><span data-bind="click: $root.showRemovePlanModal"><i class="fa fa-trash-o"></i></span></td>
+                          <!-- /ko -->
                         </tr>
                       </tbody>
                     </table>
