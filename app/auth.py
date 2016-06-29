@@ -50,7 +50,6 @@ def authorized():
             request.args['error_reason'],
             request.args['error_description']
         )
-
     session['google_token'] = (resp['access_token'], '')
     me = google.get('userinfo')
     user = User.select().where(User.gid == me.data['id']).first()

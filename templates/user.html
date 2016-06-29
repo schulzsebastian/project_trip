@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TripyPlan</title>
+    {% include "libraries.html" %}
+  </head>
+  <body>
+    {% include "header.html" %}
+    <div id="body" class="container" style="padding-top:30px">
+      <div class="row">
+        <div class="col m3 s12">
+          <div class="col m12 s12">
+            <div class="card" style="margin:0">
+              <div class="card-image">
+                <img data-bind="attr: {src: user.avatar}">
+              </div>
+              <div class="card-content">
+                <p data-bind="text: user.name"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col m9 s12">
+          <div class="row">
+            <div class="col m12 s12">
+              <ul class="tabs">
+                <li class="tab col s6"><a class="black-text active" href="#plans">Plans</a></li>
+                <li class="tab col s6"><a class="black-text" href="#maps">Maps</a></li>
+                <li class="tab col s6"><a class="black-text" href="#shares">Share links</a></li>
+              </ul>
+              <div id="plans" class="col s12 card">
+                <div class="row">
+                  <div class="card-action">
+                    <table class="highlight">
+                      <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Start date</th>
+                            <th>Final date</th>
+                        </tr>
+                      </thead>
+                      <tbody data-bind="foreach: userPlans">
+                        <tr>
+                          <td data-bind="text: name" style="color:#03a9f4"></td>
+                          <td data-bind="text: start"></td>
+                          <td data-bind="text: final"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="maps" class="col s12 card">
+                <div class="row">
+                  <div class="card-action">
+                    <table class="highlight">
+                      <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Places</th>
+                        </tr>
+                      </thead>
+                      <tbody data-bind="foreach: userMaps">
+                        <tr>
+                          <td data-bind="text: name" style="color:#03a9f4"></td>
+                          <td data-bind="text: places"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="shares" class="col s12 card">
+                <div class="row">
+                  <div class="card-action">
+                    <table class="highlight">
+                      <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Link</th>
+                        </tr>
+                      </thead>
+                      <tbody data-bind="foreach: userLinks">
+                        <tr>
+                          <td data-bind="text: name" style="color:#03a9f4"></td>
+                          <td data-bind="text: link"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="preloader-wrapper active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      //jQuery to footer (later)
+      $(document).ready(function(){
+        $('.button-collapse').sideNav()
+        $('#body').css('visibility','visible')
+        $('.preloader-wrapper').css('visibility','hidden')
+      })
+      function userModel(){
+        var self = this;
+        self.user = {
+          nick:'{{ user.nick }}',
+          name:'{{ user.name }}',
+          avatar:'{{ user.avatar }}'
+        }
+        self.userPlans = ko.observableArray()
+        self.userMaps = ko.observableArray([
+          {name: "Georgia", places: 8},
+          {name: "Iran", places: 12},
+          {name: "Morocco", places: 4}])
+        self.userLinks = ko.observableArray([
+          {name: "Georgia", link: "http://www.example.com/share/georgia"},
+          {name: "Iran", link: "http://www.example.com/share/iran"},
+          {name: "Morocco", link: "http://www.example.com/share/morocco"}])
+
+        self.getUserPlans = function(nick){
+          self.userPlans.removeAll()
+          $.getJSON(location.origin+'/plans/'+nick,{},function(data){
+            data.data.forEach(function(plan){
+              self.userPlans.push(plan)
+            })
+          })
+        }
+        self.init = function(){
+          self.getUserPlans(self.user.nick)
+        }
+        self.init()
+      }
+      var vm = new userModel();
+      ko.applyBindings(vm);
+    </script>
+  </body>
+</html>
