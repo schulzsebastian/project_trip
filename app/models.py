@@ -35,7 +35,6 @@ class User(Model):
 
 class Plan(Model):
     id = PrimaryKeyField()
-    id_hash = CharField()
     nick = ForeignKeyField(User, to_field='nick')
     name = CharField()
     start = DateField()
