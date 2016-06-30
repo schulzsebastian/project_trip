@@ -4,6 +4,7 @@
 from flask import render_template, redirect, url_for, abort
 from flask_login import login_required, current_user
 from models import *
+from utils import hash_id, unhash_id
 from . import app
 
 @app.route('/')

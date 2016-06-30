@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TripyPlan</title>
+    {% include "libraries.html" %}
+  </head>
+  <body>
+    {% include "header.html" %}
+    <script>
+      //jQuery to footer (later)
+      $(document).ready(function(){
+        $('.button-collapse').sideNav()
+        $('#body').css('visibility','visible')
+        $('.preloader-wrapper').css('visibility','hidden')
+      })
+      function planModel(){
+        var self = this;
+      }
+      var vm = new planModel();
+      ko.applyBindings(vm);
+    </script>
+  </body>
+</html>
