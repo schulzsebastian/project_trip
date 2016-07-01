@@ -41,5 +41,5 @@ def plan(pid):
     elif request.method == 'DELETE':
         payload = request.get_json(force = True)
         pid = unhash_id(payload['id'])
-        p = Plan.delete().where(Plan.id = pid).execute()
+        p = Plan.delete().where(Plan.id == pid).execute()
         return jsonify(payload)
