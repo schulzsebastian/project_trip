@@ -8,9 +8,9 @@ from models import Plan
 from utils import hash_id, unhash_id
 from . import app
 
-@app.route('/plans/<nick>', methods=['GET', 'POST', 'DELETE'])
+@app.route('/api/plans/<nick>', methods=['GET', 'POST', 'DELETE'])
 @cross_origin()
-def plans(nick):
+def get_plans(nick):
     if request.method == 'GET':
         result = {'data':[]}
         p = Plan.select().where(Plan.nick == nick).dicts()
@@ -27,9 +27,9 @@ def plans(nick):
         p = Plan.delete().where((Plan.name == payload['name']) & (Plan.nick == payload['nick'])).execute()
         return jsonify(payload)
 
-@app.route('/plan/<pid>', methods=['GET', 'DELETE'])
+@app.route('/api/plan/<pid>', methods=['GET', 'DELETE'])
 @cross_origin()
-def plan(pid):
+def get_plan(pid):
     if request.method == 'GET':
         result = {'data':[]}
         pid = unhash_id(pid)

@@ -43,7 +43,7 @@
                       </thead>
                       <tbody data-bind="foreach: userPlans">
                         <tr>
-                          <td data-bind="text: name" style="color:#03a9f4"></td>
+                          <td><a class="table-link" data-bind="text: name, attr: {href:{{ url_for('plan', pid=id) }} }"></a></td>
                           <td data-bind="text: start"></td>
                           <td data-bind="text: final"></td>
                           <td><span data-bind="click: $root.showRemovePlanModal"><i class="fa fa-trash-o"></i></span></td>
@@ -191,7 +191,7 @@
 
         self.getUserPlans = function(nick){
           self.userPlans.removeAll()
-          $.getJSON(location.origin+'/plans/'+nick,{},function(data){
+          $.getJSON(location.origin+'/api/plans/'+nick,{},function(data){
             data.data.forEach(function(plan){
               self.userPlans.push(plan)
             })
@@ -222,7 +222,7 @@
             var payload = {name:self.newPlan(),nick:self.current_user.nick,start:self.startDate(),final:self.finalDate()}
             $.ajax({
               type: 'POST',
-              url: location.origin+'/plans/'+self.current_user.nick,
+              url: location.origin+'/api/plans/'+self.current_user.nick,
               data: JSON.stringify(payload),
               contentType: 'application/json',
               success: function(data){

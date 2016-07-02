@@ -30,3 +30,7 @@
     top : 50%;
     position : absolute;
 }
+.table-link {
+	color:#03a9f4 !important;
+	text-transform:none !important;
+}

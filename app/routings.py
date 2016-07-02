@@ -24,7 +24,19 @@ def user(nick):
     if(nick == current_user.nick):
         return redirect(url_for('dashboard'))
     try:
-        user = User.get(User.nick==nick)
+        user = User.get(User.nick == nick)
         return render_template('user.html', user=user)
     except:
-        return redirect(url_for('dashboard'))
+        abort(404)
+
+@app.route('/plan/<pid>')
+@login_required
+def plan(pid):
+    try:
+        plan = Plan.get(Plan.id == unhash_id(pid))
+        if plan.nick == current_user.nick:
+            return render_template('plan.html', plan=plan)
+        else:
+            abort(403)
+    except:
+        abort(404)
