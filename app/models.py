@@ -6,6 +6,7 @@ import datetime
 
 db = SqliteDatabase('db.db')
 
+
 class User(Model):
     id = PrimaryKeyField()
     gid = CharField()
@@ -13,19 +14,19 @@ class User(Model):
     nick = CharField()
     avatar = CharField()
     registered = DateField(default=datetime.date.today())
- 
+
     def is_authenticated(self):
         return True
- 
+
     def is_active(self):
         return True
- 
+
     def is_anonymous(self):
         return False
- 
+
     def get_id(self):
         return unicode(self.id)
- 
+
     def __repr__(self):
         return '<User %r>' % (self.name)
 

@@ -4,8 +4,8 @@
 from flask import render_template, redirect, url_for, abort
 from flask_login import login_required, current_user
 from models import *
-from utils import hash_id, unhash_id
 from . import app
+
 
 @app.route('/')
 def index():
@@ -13,10 +13,12 @@ def index():
         return redirect(url_for('dashboard'))
     return render_template('index.html')
 
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
     return render_template('dashboard.html')
+
 
 @app.route('/user/<nick>')
 @login_required
@@ -28,6 +30,7 @@ def user(nick):
         return render_template('user.html', user=user)
     except:
         abort(404)
+
 
 @app.route('/plan/<pid>')
 @login_required

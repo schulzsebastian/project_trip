@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import redirect, url_for, session, request, render_template
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask import redirect, url_for, session, request
+from flask_login import LoginManager, login_user, logout_user
 from flask_oauthlib.client import OAuth
 from models import *
 from . import app
@@ -26,9 +26,11 @@ google = oauth.remote_app(
     authorize_url='https://accounts.google.com/o/oauth2/auth',
 )
 
+
 @login_manager.user_loader
 def load_user(id):
     return User.select().where(User.id == id).first()
+
 
 @app.route('/login')
 def login():
